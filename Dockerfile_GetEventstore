@@ -4,7 +4,8 @@
 
 # docker build -t eventstore/geteventstore:3.0.3 .
 # docker images
-# docker run -d -p 2113:2113 -p 1113:1113 eventstore/geteventstore:3.0.3
+# docker run -d -p 2113:2113 -p 1113:1113  eventstore/geteventstore:3.0.3
+# docker run -d -p 2113:2113 -p 1113:1113 -v /home/ugo/eventstore/db:/data/db -v /home/ugo/eventstore/logs:/data/logs eventstore/geteventstore:3.0.3
 
 FROM      ubuntu:14.10
 MAINTAINER Ugo Bourdon <bourdon.ugo@gmail.com>
@@ -16,8 +17,7 @@ RUN curl http://download.geteventstore.com/binaries/EventStore-OSS-Linux-v3.0.3.
 EXPOSE 2113
 EXPOSE 1113
 
-VOLUME /data/db
-VOLUME /data/logs
+VOLUME ["/data/db", "/data/logs"]
 
 ENV EVENTSTORE_MAX_MEM_TABLE_SIZE 100000
 ENV EVENTSTORE_WORKER_THREADS 12
